@@ -1,6 +1,10 @@
-# 💬 RAG SQL BI Assistant
+# 💬 RAG BI Assistant
 
-A lightweight conversational BI assistant that uses:
+A metadata-driven conversational BI assistant designed for enterprise analytics environments.
+
+Unlike traditional text-to-SQL systems, this project does NOT attempt to generate arbitrary SQL from natural language.
+
+Instead, it retrieves company-approved business logic and SQL patterns from curated metadata using:
 
 * FastAPI
 * Streamlit
@@ -9,19 +13,17 @@ A lightweight conversational BI assistant that uses:
 * Fuzzy matching
 * Local LLMs via Ollama
 
+The assistant relies on pre-defined business retrieval logic stored in metadata files, making responses:
+
+- consistent
+- explainable
+- aligned with company KPIs
+- less prone to hallucinations
+
+User Interface:
+
 <img src="assets/demo.png" width="700">
 
-The project allows users to ask natural language questions like:
-
-```text
-active users
-how many completed orders
-revenue query
-```
-
-and receive SQL query logic back instead of executing queries directly. 
-
-Queries returned are kept in metadata since every company may have different business logics to retrieve information. 
 
 ---
 
