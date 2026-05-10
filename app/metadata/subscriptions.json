@@ -1,0 +1,45 @@
+{
+  "metric_name": "subscriptions",
+  "description": "Count of user subscriptions",
+  "aliases": [
+    "subscriptions",
+    "plans",
+    "memberships",
+    "subscribers"
+  ],
+  "base_sql": "SELECT COUNT(*) FROM subscriptions",
+  "segments": {
+    "all": {
+      "description": "All subscriptions without filter",
+      "filter": null
+    },
+    "active": {
+      "description": "Active subscriptions",
+      "filter": "status = 'active'"
+    },
+    "cancelled": {
+      "description": "Cancelled subscriptions",
+      "filter": "status = 'cancelled'"
+    },
+    "expired": {
+      "description": "Expired subscriptions",
+      "filter": "status = 'expired'"
+    }
+  },
+  "dimensions": {
+    "start_date": "start_date",
+    "end_date": "end_date",
+    "status": "status",
+    "plan_type": "plan_type"
+  },
+  "examples": [
+    {
+      "question": "How many active subscriptions do we have?",
+      "segment": "active"
+    },
+    {
+      "question": "Show all subscriptions",
+      "segment": "all"
+    }
+  ]
+}

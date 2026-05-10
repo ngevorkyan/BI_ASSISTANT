@@ -1,10 +1,41 @@
 {
   "metric_name": "users",
-  "aliases": ["users", "clients", "customers"],
+  "description": "Count of users/clients in the system",
+  "aliases": [
+    "users",
+    "clients",
+    "customers",
+    "user count",
+    "client count"
+  ],
   "base_sql": "SELECT COUNT(*) FROM users",
   "segments": {
-    "all": null,
-    "active": "status = 'active'",
-    "inactive": "status = 'inactive'"
-  }
+    "all": {
+      "description": "All users without status filter",
+      "filter": null
+    },
+    "active": {
+      "description": "Users with active status",
+      "filter": "status = 'active'"
+    },
+    "inactive": {
+      "description": "Users with inactive status",
+      "filter": "status = 'inactive'"
+    }
+  },
+  "dimensions": {
+    "country": "country",
+    "signup_date": "created_at",
+    "status": "status"
+  },
+  "examples": [
+    {
+      "question": "How many active users do we have?",
+      "segment": "active"
+    },
+    {
+      "question": "Show all users without filter",
+      "segment": "all"
+    }
+  ]
 }

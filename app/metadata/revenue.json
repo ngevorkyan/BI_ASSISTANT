@@ -1,5 +1,41 @@
 {
   "metric_name": "revenue",
-  "description": "Returns total revenue from completed orders.",
-  "sql": "SELECT SUM(amount) AS total_revenue FROM orders WHERE status = 'completed';"
+  "description": "Total revenue from orders",
+  "aliases": [
+    "revenue",
+    "sales",
+    "income",
+    "total revenue",
+    "gross revenue"
+  ],
+  "base_sql": "SELECT SUM(amount) FROM orders",
+  "segments": {
+    "all": {
+      "description": "Total revenue without filter",
+      "filter": null
+    },
+    "completed": {
+      "description": "Revenue from completed orders",
+      "filter": "status = 'completed'"
+    },
+    "cancelled": {
+      "description": "Revenue from cancelled orders",
+      "filter": "status = 'cancelled'"
+    }
+  },
+  "dimensions": {
+    "order_date": "created_at",
+    "status": "status",
+    "country": "country"
+  },
+  "examples": [
+    {
+      "question": "What is total revenue?",
+      "segment": "all"
+    },
+    {
+      "question": "Show completed revenue",
+      "segment": "completed"
+    }
+  ]
 }

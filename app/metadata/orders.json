@@ -1,5 +1,44 @@
 {
   "metric_name": "orders",
-  "description": "Returns total number of orders.",
-  "sql": "SELECT COUNT(*) AS total_orders FROM orders;"
+  "description": "Count of orders in the system",
+  "aliases": [
+    "orders",
+    "order count",
+    "purchases",
+    "transactions"
+  ],
+  "base_sql": "SELECT COUNT(*) FROM orders",
+  "segments": {
+    "all": {
+      "description": "All orders without filter",
+      "filter": null
+    },
+    "completed": {
+      "description": "Completed orders",
+      "filter": "status = 'completed'"
+    },
+    "cancelled": {
+      "description": "Cancelled orders",
+      "filter": "status = 'cancelled'"
+    },
+    "pending": {
+      "description": "Pending orders",
+      "filter": "status = 'pending'"
+    }
+  },
+  "dimensions": {
+    "order_date": "created_at",
+    "status": "status",
+    "country": "country"
+  },
+  "examples": [
+    {
+      "question": "How many completed orders do we have?",
+      "segment": "completed"
+    },
+    {
+      "question": "Show all orders",
+      "segment": "all"
+    }
+  ]
 }
