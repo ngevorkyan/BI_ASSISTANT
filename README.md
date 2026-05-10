@@ -9,7 +9,7 @@ A lightweight conversational BI assistant that uses:
 * Fuzzy matching
 * Local LLMs via Ollama
 
-<img src="demo.png" width="700">
+<img src="assets/demo.png" width="700">
 
 The project allows users to ask natural language questions like:
 
