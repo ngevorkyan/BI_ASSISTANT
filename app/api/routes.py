@@ -1,7 +1,9 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from app.rag.retriever import retrieve_context
+from app.parser.query_parser import is_greeting, parse_user_input
+from app.metadata.loader import load_metric
+from app.sql.builder import build_sql
 
 router = APIRouter()
 
@@ -10,70 +12,52 @@ class AskRequest(BaseModel):
     user_input: str
 
 
-def is_greeting(text: str) -> bool:
-    greetings = [
-        "hi",
-        "hello",
-        "hey",
-        "yo",
-        "good morning",
-        "good evening"
-    ]
-
-    return text.lower().strip() in greetings
-
-
 @router.post("/ask")
 def ask(request: AskRequest):
-
     try:
+        user_input = request.user_input.strip()
 
-        user_input = request.user_input
-
-        # GREETING MODE
         if is_greeting(user_input):
             return {
                 "type": "chat",
-                "answer": "Hey 👋 I’m your SQL/BI assistant. Ask me something like: show active users, show revenue, or show orders."
-            }
-
-        # RAG RETRIEVAL
-        docs = retrieve_context(user_input)
-
-        if not docs:
-            return {
-                "type": "error",
                 "answer": (
-                    "I couldn't find matching metrics. "
-                    "Try: active users, revenue, or orders."
-                ),
-                "sql": None
+                    "Hey 👋 I’m your BI assistant. "
+                    "Ask me about your company's users, revenue et.c."
+                )
             }
 
-        best_doc = docs[0].page_content
+        parsed = parse_user_input(user_input)
 
-        sql = extract_sql(best_doc)
+        # FAST PATH: known metric, no RAG
+        if parsed["metric"]:
+            metric_data = load_metric(parsed["metric"])
+
+            sql = build_sql(
+                metric_data=metric_data,
+                segment=parsed["segment"]
+            )
+
+            return {
+                "type": "sql",
+                "question": user_input,
+                "metric": parsed["metric"],
+                "segment": parsed["segment"],
+                "answer": "SQL query generated successfully:",
+                "sql": sql
+            }
 
         return {
-            "type": "sql",
-            "question": user_input,
-            "answer": "SQL query generated successfully:",
-            "sql": sql,
-            "matched_context": best_doc
+            "type": "error",
+            "answer": (
+                "I couldn't find matching metrics. "
+                "Try asking me about users, revenue et.c."
+            ),
+            "sql": None
         }
 
     except Exception as e:
-
         return {
             "type": "error",
             "answer": "Backend crashed.",
             "debug_error": str(e)
         }
-
-
-def extract_sql(text: str) -> str:
-
-    if "SQL:" in text:
-        return text.split("SQL:", 1)[1].strip()
-
-    return text.strip()

@@ -1,32 +1,10 @@
 {
   "metric_name": "users",
-  "description": "Count of users by status",
-  "table": "users",
-  "default_sql": "SELECT COUNT(*) FROM users",
-  "statuses": {
-    "active": {
-      "description": "Users with active status",
-      "filter": "status = 'active'",
-      "sql": "SELECT COUNT(*) FROM users WHERE status = 'active'"
-    },
-    "inactive": {
-      "description": "Users with inactive status",
-      "filter": "status = 'inactive'",
-      "sql": "SELECT COUNT(*) FROM users WHERE status = 'inactive'"
-    },
-    "all": {
-      "description": "All users without status filter",
-      "filter": null,
-      "sql": "SELECT COUNT(*) FROM users"
-    }
-  },
-  "aliases": [
-    "clients",
-    "users",
-    "client count",
-    "user count",
-    "all users",
-    "active users",
-    "inactive users"
-  ]
+  "aliases": ["users", "clients", "customers"],
+  "base_sql": "SELECT COUNT(*) FROM users",
+  "segments": {
+    "all": null,
+    "active": "status = 'active'",
+    "inactive": "status = 'inactive'"
+  }
 }
