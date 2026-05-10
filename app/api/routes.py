@@ -40,9 +40,9 @@ def ask(request: AskRequest):
             metric_data = load_metric(metric)
 
             sql = build_sql(
-                metric_data=metric_data,
-                segment=parsed["segment"]
-            )
+            metric_data=metric_data,
+            segment=parsed["segment"],
+            group_by=parsed.get("group_by"))
 
             return {
                 "type": "sql",

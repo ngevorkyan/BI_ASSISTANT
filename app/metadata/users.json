@@ -26,7 +26,8 @@
   "dimensions": {
     "country": "country",
     "signup_date": "created_at",
-    "status": "status"
+    "status": "status",
+    "statuses": "status"
   },
   "examples": [
     {

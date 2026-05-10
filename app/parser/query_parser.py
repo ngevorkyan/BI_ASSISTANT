@@ -13,10 +13,18 @@ def parse_user_input(text: str) -> dict:
     text = text.lower().strip()
 
     return {
+        "metric": None,
         "original_question": text,
-        "segment": detect_segment(text)
+        "segment": detect_segment(text),
+        "group_by": detect_group_by(text)
     }
 
+
+def detect_group_by(text: str) -> str | None:
+    if "group by status" in text or "group by statuses" in text or "by status" in text:
+        return "status"
+
+    return None
 
 def detect_segment(text: str) -> str:
     """
