@@ -34,7 +34,7 @@ def ask(request: AskRequest):
         if is_greeting(user_input):
             return {
                 "type": "chat",
-                "answer": "Hey 👋 I’m your BI assistant. Ask me something like: show active users, show revenue, or show orders."
+                "answer": "Hey 👋 I’m your SQL/BI assistant. Ask me something like: show active users, show revenue, or show orders."
             }
 
         # RAG RETRIEVAL

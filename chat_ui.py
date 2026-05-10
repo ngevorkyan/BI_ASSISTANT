@@ -3,7 +3,7 @@ import requests
 
 API_URL = "http://127.0.0.1:8000/ask"
 
-st.title("💬 RAG SQL BI Assistant")
+st.title("💬 BI Assistant")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
