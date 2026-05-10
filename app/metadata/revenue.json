@@ -1,0 +1,5 @@
+{
+  "metric_name": "revenue",
+  "description": "Returns total revenue from completed orders.",
+  "sql": "SELECT SUM(amount) AS total_revenue FROM orders WHERE status = 'completed';"
+}

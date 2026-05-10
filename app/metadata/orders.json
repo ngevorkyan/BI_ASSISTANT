@@ -1,0 +1,5 @@
+{
+  "metric_name": "orders",
+  "description": "Returns total number of orders.",
+  "sql": "SELECT COUNT(*) AS total_orders FROM orders;"
+}

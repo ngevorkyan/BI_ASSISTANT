@@ -1,0 +1,38 @@
+test_bi/
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   │
+│   ├── api/
+│   │   ├── __init__.py
+│   │   └── routes.py
+│   │
+│   ├── config/
+│   │   ├── __init__.py
+│   │   └── settings.py
+│   │
+│   ├── ingestion/
+│   │   ├── __init__.py
+│   │   └── ingest.py
+│   │
+│   ├── metadata/
+│   │   ├── active_users.json
+│   │   ├── orders.json
+│   │   └── revenue.json
+│   │
+│   ├── rag/
+│   │   ├── __init__.py
+│   │   ├── index_builder.py
+│   │   ├── retriever.py
+│   │   └── vector_store.py
+│   │
+│   └── sql/
+│       ├── __init__.py
+│       ├── generator.py
+│       └── validator.py
+│
+├── chroma_db/
+├── .env
+├── chat_ui.py
+├── requirements.txt
+└── README.txt

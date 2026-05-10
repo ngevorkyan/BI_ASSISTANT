@@ -1,0 +1,5 @@
+{
+  "metric_name": "active users",
+  "description": "Count of users with active status",
+  "sql": "SELECT COUNT(*) FROM users WHERE status = 'active'"
+}
