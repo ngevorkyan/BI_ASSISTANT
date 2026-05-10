@@ -12,37 +12,41 @@ def is_greeting(text: str) -> bool:
 def parse_user_input(text: str) -> dict:
     text = text.lower().strip()
 
-    metric = None
-    segment = "all"
+    return {
+        "original_question": text,
+        "segment": detect_segment(text)
+    }
 
-    if any(word in text for word in [
-        "user",
-        "users",
-        "client",
-        "clients",
-        "customer",
-        "customers"
-    ]):
-        metric = "users"
 
-    if "inactive" in text:
-        segment = "inactive"
-    elif "active" in text:
-        segment = "active"
+def detect_segment(text: str) -> str:
+    """
+    Only detects generic filter intent.
+    Metric detection should come from RAG / metadata retrieval.
+    """
 
-    if any(phrase in text for phrase in [
-        "all",
+    if contains_phrase(text, [
         "no filter",
         "without filter",
         "unfiltered",
         "non filtered",
         "non-filtered",
         "remove filter",
-        "remove filters"
+        "remove filters",
+        "all"
     ]):
-        segment = "all"
+        return "all"
 
-    return {
-        "metric": metric,
-        "segment": segment
-    }
+    words = text.split()
+
+    for word in words:
+        if word.endswith("ed"):
+            return word
+
+        if word.endswith("ive"):
+            return word
+
+    return "all"
+
+
+def contains_phrase(text: str, phrases: list[str]) -> bool:
+    return any(phrase in text for phrase in phrases)
