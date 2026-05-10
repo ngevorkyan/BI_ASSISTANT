@@ -19,7 +19,9 @@ how many completed orders
 revenue query
 ```
 
-and receive SQL query logic back instead of executing queries directly.
+and receive SQL query logic back instead of executing queries directly. 
+
+Queries returned are kept in metadata since every company may have different business logics to retrieve information. 
 
 ---
 
