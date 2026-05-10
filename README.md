@@ -13,12 +13,11 @@ Instead, it retrieves company-approved business logic and SQL patterns from cura
 * Fuzzy matching
 * Local LLMs via Ollama
 
-The assistant relies on pre-defined business retrieval logic stored in metadata files, making responses:
-
-- consistent
-- explainable
-- aligned with company KPIs
-- less prone to hallucinations
+The assistant relies on pre-defined business retrieval logic stored in metadata files, making responses: 
+ - consistent
+ - explainable
+ - aligned with company KPIs
+ - less prone to hallucinations
 
 User Interface:
 
